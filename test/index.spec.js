@@ -24,9 +24,29 @@ describe('Api tests', () => {
         });
     });
 
+    describe('POST Test', () => {
+        const request = require('../test/resources/api/users/_post/rq.json');
+        const response = require('../test/resources/api/users/_post/rs.json');
+
+        let dateForValidate;
+
+        it('Shuld return status 201', () => {
+            return axios.post(config.baseUrl + '/users', request)
+                .then(response => {
+                    dateForValidate = response.data;
+                    expect(response.status).to.be.equal(201);
+                });
+        });
+
+        it('Response shuld be validate', (done) => {
+            expect(dateForValidate).to.be.deep.equal(response);
+            done();
+        });
+    });
+
     describe('POST mising some fields test', () => {
         chai.use(require('chai-json-schema'));
-        const request = require('../test/resources/api/users/_post/rq.json');
+        const request = require('../test/resources/api/users/_post/missingparamrs.json');
         const schema = require('../test/resources/api/users/_post/rs.schema.json');
 
         delete request.name;
@@ -44,27 +64,6 @@ describe('Api tests', () => {
 
         it('Response shuld be validate by schema', (done) => {
             chai.assert.jsonSchema(dateForValidate, schema);
-            done();
-        });
-    });
-
-
-    describe('POST Test', () => {
-        const request = require('../test/resources/api/users/_post/rq.json');
-        const response = require('../test/resources/api/users/_post/rs.json');
-
-        let dateForValidate;
-
-        it('Shuld return status 201', () => {
-            return axios.post(config.baseUrl + '/users', request)
-                .then(response => {
-                    dateForValidate = response.data;
-                    expect(response.status).to.be.equal(201);
-                });
-        });
-
-        it('Response shuld be validate', (done) => {
-            expect(dateForValidate.name).to.equal(response.name);
             done();
         });
     });
