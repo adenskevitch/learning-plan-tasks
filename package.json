@@ -1,0 +1,18 @@
+{
+  "name": "learning-plan-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "chai-json-schema": "^1.5.1",
+    "mocha": "^9.2.2"
+  }
+}
